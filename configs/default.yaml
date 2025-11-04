@@ -1,0 +1,44 @@
+# Experiment & data
+exp_name: gaussian_dir_default
+fixed_path: null
+moving_path: null
+seed: 42
+
+
+# Training
+total_iters: 2000
+batch_voxels: 20000 # M
+lr: 1.0e-3
+weight_decay: 0.0
+warmup_iters: 200
+save_every: 200
+knn_k: 8
+
+
+# Multi-scale (two-stage)
+# Stage-1: coarse, Stage-2: fine (switch at iter_switch)
+iter_switch: 1000
+max_gaussians_stage1_factor: 0.125 # 1/8 * |Ω|
+max_gaussians_stage2_factor: 0.25 # 1/4 * |Ω|
+
+
+# Adaptive density
+clone_every: 100 # perform clone/prune every N iters after warmup
+tau_max: 2.0e-3
+au_min: 1.0e-7
+jitter_scale_factor: 0.25 # Δμ ~ N(0, 0.25 * s_i)
+max_new_per_step: 10000 # safety cap for cloning per operation
+
+
+# Losses
+lambda_tv: 15.0
+ncc_epsilon: 1.0e-5
+
+
+# Mini-batch TV sampling
+# per iteration, sample (1/(D+1))*B voxels (D=3), then add orthogonal neighbors
+# implemented directly in code; leave here for clarity
+
+
+# IO
+out_dir: outputs
